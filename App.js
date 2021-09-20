@@ -1,43 +1,48 @@
-
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
-import GridImageView from 'react-native-grid-image-viewer';
+import { Image, StyleSheet, Text, TocuableOpacity, TouchableOpacity, View } from 'react-native';
+import logo from './assets/logo.png';
 
-export default class App extends React.Component {
-  constructor(props) {
-    super(props);
-  }
-  render() {
-    return (
-       <View style={styles.background}>
-      <Text style={styles.headline_text}>Grid View Images</Text>
-      <Text style={styles.explore_text}>Click on an image to view in full screen mode</Text>
+export default function App() {
+  return (
+    <View style={styles.container}>
       
-      {/* Basic Usage */}
-      <GridImageView data={[ 'favicon.png', 'favicon.png', 'favicon.png', 'favicon.png' ]} />
+      <Image source={logo} style={styles.logo} />
+      
+      <Text style={styles.instructions}>
+      To share a photo from your phone with a friend, just press the button below!
+      </Text>
+
+      <TouchableOpacity onPress={() => alert('Hello, world!')} style={styles.button}>
+          <Text style={styles.buttonText }>Pick a photo</Text>
+      </TouchableOpacity>
     </View>
-    );
-  }
-};
+  );
+}
 
 const styles = StyleSheet.create({
-  background: {
-    backgroundColor: 'black',
-    flex: 1
+  container: {
+    flex: 1,
+    backgroundColor: '#fff',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
-  headline_text: {
-    color: 'white',
-    fontSize: 30,
-    fontWeight: 'bold',
-    marginTop: 50,
-    marginLeft: 20
-  },
-  explore_text: {
-    marginTop: 5,
+  logo: {
+    width: 305,
+    height: 159,
     marginBottom: 10,
-    color: 'white',
-    marginLeft: 20,
-    fontSize: 12,
-    fontWeight: '600'
+  },
+  instructions: {
+    color: '#800',
+    fontSize: 18,
+    marginHorizontal: 15,
+  },
+  button: {
+    backgroundColor: "blue",
+    padding: 20,
+    borderRadius: 5,
+  },
+  buttonText: {
+    fontSize: 20,
+    color: '#fff',
   },
 });
