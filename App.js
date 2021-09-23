@@ -1,30 +1,41 @@
 import React from 'react';
-import { Image, StyleSheet, Text, TocuableOpacity, TouchableOpacity, View } from 'react-native';
+import { Button, Image, ScrollView, StyleSheet, Text, TocuableOpacity, TouchableOpacity, View } from 'react-native';
 import logo from './assets/logo.png';
+import * as MediaLibrary from 'expo-media-library';
 
-export default function App() {
-  return (
-    <View style={styles.container}>
-      
-      <Image source={logo} style={styles.logo} />
-      
-      <Text style={styles.instructions}>
-      To share a photo from your phone with a friend, just press the button below!
-      </Text>
 
-      <TouchableOpacity onPress={() => alert('Hello, world!')} style={styles.button}>
-          <Text style={styles.buttonText }>Pick a photo</Text>
-      </TouchableOpacity>
-    </View>
-  );
+export default class App extends React.Component {
+  _mediaLibraryAsync = async() => {
+    let { status } = await
+    MediaLibrary.requestPermissionsAsync()
+      let media = await MediaLibrary.getAssetsAsync({
+        mediaType: 'photo',
+      })
+      let video = await MediaLibrary.getAssetInfoAsync(media.assets[media.assets.length-1])
+
+      console.log(video);
+  };
+
+  render() {
+    return (
+      <View style={{ flex:1, justifyContent: 'center', alignItems: 'center', }}>
+      <Button
+        onPress={this._mediaLibraryAsync}
+        title="Do MediaLibrary Stuff"/>
+      </View>
+    );      
+  }
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#fff',
+    backgroundColor: '#000',
     alignItems: 'center',
-    justifyContent: 'center',
+    //justifyContent: 'center',
+  },
+  topBar: {
+    paddingTop: 30,
   },
   logo: {
     width: 305,
@@ -46,3 +57,11 @@ const styles = StyleSheet.create({
     color: '#fff',
   },
 });
+
+const ImageView = () => {
+  const imageViewStyle ={
+    width: 100,
+    height: 100,
+  };
+  return <View style={imageViewStyle}  />;
+};
